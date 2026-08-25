@@ -21,5 +21,14 @@ KEYWORDS = [
     "Internship Machine Learning",
     "Praktikum Data Engineering",
     "Internship Data Analyst",
-    "Masterarbeit AI"
+    "Masterarbeit AI",
+    
+    # German variants to help with Arbeitsagentur
+    "Masterarbeit Künstliche Intelligenz",
+    "Masterarbeit KI",
+    "Praktikum Künstliche Intelligenz",
+    "Praktikum KI",
+    "Abschlussarbeit Data Science",
+    "Abschlussarbeit Machine Learning",
+    "Abschlussarbeit KI"
 ]
