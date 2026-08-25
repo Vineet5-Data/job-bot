@@ -30,6 +30,25 @@ def main():
     new_alert_count = 0
     now_str = datetime.utcnow().isoformat() + "Z"
     
+    import re
+    def is_relevant_job(title: str) -> bool:
+        t = title.lower()
+        # Exclude lower priority or irrelevant roles
+        if "werkstudent" in t or "working student" in t:
+            return False
+        if "sales" in t or "marketing" in t or "business development" in t or "e-commerce" in t:
+            return False
+            
+        # Must be Master Thesis or Internship
+        role_kws = ["master", "thesis", "abschlussarbeit", "intern", "praktik"]
+        has_role = any(r in t for r in role_kws)
+        
+        # Must be in Data/AI domain
+        tech_kws = ["data", "machine learning", "deep learning", "nlp", "computer vision", "reinforcement", "llm", "robotics"]
+        has_tech = any(tk in t for tk in tech_kws) or bool(re.search(r'\b(ai|ml|cv|ki)\b', t))
+        
+        return has_role and has_tech
+
     processed_this_run = set()
     
     for job in all_fetched_jobs:
@@ -37,8 +56,13 @@ def main():
         if job_id not in seen_ids and job_id not in processed_this_run:
             processed_this_run.add(job_id)
             new_seen_ids[job_id] = now_str
-            send_telegram_alert(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, job)
-            new_alert_count += 1
+            
+            # Apply strict title filtering
+            if is_relevant_job(job["title"]):
+                send_telegram_alert(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, job)
+                new_alert_count += 1
+            else:
+                print(f"Skipped irrelevant job: {job['title']}")
             
     if new_seen_ids:
         save_seen_ids(filepath, new_seen_ids)
