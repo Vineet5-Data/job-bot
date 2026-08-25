@@ -40,5 +40,12 @@ KEYWORDS = [
     "Masterarbeit RL",
     "Internship Data Analytics",
     "Master Thesis Agentic",
-    "Masterarbeit ADAS"
+    "Masterarbeit ADAS",
+    
+    # Audio / Speech / Acoustics AI
+    "Masterarbeit Audio Machine Learning",
+    "Master Thesis Audio Processing",
+    "Internship Speech Recognition",
+    "Masterarbeit Acoustics AI",
+    "Internship Voice AI"
 ]
