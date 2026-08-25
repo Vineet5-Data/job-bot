@@ -10,5 +10,16 @@ KEYWORDS = [
     "Masterarbeit Machine Learning",
     "Praktikum Data Science",
     "Internship Data Science",
-    "Praktikum Machine Learning"
+    "Praktikum Machine Learning",
+    "Masterarbeit Deep Learning",
+    "Master Thesis Deep Learning",
+    "Internship Deep Learning",
+    "Masterarbeit Reinforcement Learning",
+    "Masterarbeit NLP",
+    "Internship NLP",
+    "Master Thesis Computer Vision",
+    "Internship Machine Learning",
+    "Praktikum Data Engineering",
+    "Internship Data Analyst",
+    "Masterarbeit AI"
 ]
