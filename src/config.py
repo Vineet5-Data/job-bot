@@ -32,7 +32,7 @@ KEYWORDS = [
     "Abschlussarbeit Machine Learning",
     "Abschlussarbeit KI",
     
-    # Newly added from User applied jobs history
+    # Advanced Tech / Autonomous Driving / GenAI (from history)
     "Masterarbeit Autonomous Driving",
     "Internship Autonomous Driving",
     "Master Thesis Generative AI",

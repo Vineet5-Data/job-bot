@@ -51,8 +51,8 @@ def main():
         has_role = any(r in t for r in role_kws)
         
         # Must be in Data/AI domain
-        tech_kws = ["data", "machine learning", "deep learning", "nlp", "computer vision", "reinforcement", "llm", "robotics", "autonomous driving", "agentic", "generative ai"]
-        has_tech = any(tk in t for tk in tech_kws) or bool(re.search(r'\b(ai|ml|cv|ki|rl|adas|genai)\b', t))
+        tech_kws = ["data", "machine learning", "deep learning", "nlp", "computer vision", "reinforcement", "llm", "robotics", "autonomous", "adas", "genai", "generative ai", "agent", "analytics"]
+        has_tech = any(tk in t for tk in tech_kws) or bool(re.search(r'\b(ai|ml|cv|ki|rl)\b', t))
         
         return has_role and has_tech
 
