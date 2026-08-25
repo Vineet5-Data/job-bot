@@ -30,5 +30,15 @@ KEYWORDS = [
     "Praktikum KI",
     "Abschlussarbeit Data Science",
     "Abschlussarbeit Machine Learning",
-    "Abschlussarbeit KI"
+    "Abschlussarbeit KI",
+    
+    # Newly added from User applied jobs history
+    "Masterarbeit Autonomous Driving",
+    "Internship Autonomous Driving",
+    "Master Thesis Generative AI",
+    "Masterarbeit GenAI",
+    "Masterarbeit RL",
+    "Internship Data Analytics",
+    "Master Thesis Agentic",
+    "Masterarbeit ADAS"
 ]
