@@ -5,10 +5,10 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 JOB_LOCATION = os.getenv("JOB_LOCATION", "Deutschland")
 
 KEYWORDS = [
-    "Werkstudent Data Science",
-    "Praktikum Data Science",
     "Masterarbeit Data Science",
-    "Working Student Machine Learning",
-    "Werkstudent KI",
-    "Internship Data Science"
+    "Master Thesis Data Science",
+    "Masterarbeit Machine Learning",
+    "Praktikum Data Science",
+    "Internship Data Science",
+    "Praktikum Machine Learning"
 ]
