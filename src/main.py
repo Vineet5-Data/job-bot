@@ -31,8 +31,15 @@ def main():
     now_str = datetime.utcnow().isoformat() + "Z"
     
     import re
-    def is_relevant_job(title: str) -> bool:
-        t = title.lower()
+    def is_relevant_job(job_dict: dict) -> bool:
+        t = job_dict.get("title", "").lower()
+        loc = job_dict.get("location", "").lower()
+        
+        # Block jobs outside Germany (LinkedIn sponsored jobs often bypass location)
+        foreign_countries = ["italy", "italia", "france", "uk ", "united kingdom", "spain", "poland", "netherlands", "switzerland", "austria", "usa", "united states", "india"]
+        if any(f in loc for f in foreign_countries):
+            return False
+            
         # Exclude lower priority or irrelevant roles
         if "werkstudent" in t or "working student" in t:
             return False
@@ -58,7 +65,7 @@ def main():
             new_seen_ids[job_id] = now_str
             
             # Apply strict title filtering
-            if is_relevant_job(job["title"]):
+            if is_relevant_job(job):
                 send_telegram_alert(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, job)
                 new_alert_count += 1
             else:

@@ -19,7 +19,7 @@ def fetch_jobs(keyword: str, location: str) -> List[Dict[str, Any]]:
             search_term=keyword,
             location=location,
             results_wanted=15,
-            hours_old=2,
+            hours_old=1,
             country_indeed="germany"
         )
         
@@ -34,6 +34,19 @@ def fetch_jobs(keyword: str, location: str) -> List[Dict[str, Any]]:
             else:
                 job_id = f"li_{hashlib.sha1(job_url.encode()).hexdigest()}"
                 
+            from datetime import datetime, timedelta
+            date_posted = row.get("date_posted")
+            is_old = False
+            if pd.notna(date_posted):
+                try:
+                    dp = pd.to_datetime(date_posted).tz_localize(None)
+                    if datetime.utcnow() - dp > timedelta(hours=24):
+                        is_old = True
+                except Exception:
+                    pass
+            if is_old:
+                continue
+
             jobs.append({
                 "job_id": job_id,
                 "title": str(row.get("title", "")),
