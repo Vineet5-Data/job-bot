@@ -1,17 +1,17 @@
 {
-  "positioning": "Data scientist & ML engineer at TU Dortmund. Takes ideas out of research papers and turns them into systems that run on real, messy data — measured honestly, and holding up outside the notebook. Background spans audio classification, simulation-based inference, recommendation systems in production, and causal inference, moving comfortably between research and the engineering that carries it.",
+  "positioning": "Data scientist and ML engineer at TU Dortmund. Takes ideas out of research papers and turns them into systems that run on real, messy data — measured honestly, and holding up outside the notebook. Background spans audio classification, simulation-based inference, recommendation systems in production, and causal inference, moving comfortably between research and the engineering that carries it.",
   "skills": {
     "Programming Languages": "Python, R, SQL, C, C++ (basics)",
     "Data Processing & Visualization": "Pandas, NumPy, Matplotlib, Seaborn, EDA, Tableau, Plotly, Geopandas, OSMnx, NetworkX",
-    "Tools & Platforms": "Git/GitHub, Azure (Linux VM, containerised deployment), AWS, Docker, Kubernetes, GitHub Actions (CI/CD), Firebase, PostgreSQL, OSMnx, Weights & Biases, LaTeX, REST APIs, MS Office (Excel, PowerPoint)",
-    "Software Engineering for Research": "Reproducible pipelines, version control discipline, code testing & debugging, Model Benchmarking, Feature Engineering, Hyperparameter Tuning, Model Evaluation Metrics, Model Deployment, Web App Development",
+    "Tools & Platforms": "Git/GitHub, Azure, Linux, AWS, Docker, Kubernetes, GitHub Actions (CI/CD), Firebase, PostgreSQL, OSMnx, Weights and Biases, LaTeX, REST APIs, MS Office (Excel, PowerPoint)",
+    "Software Engineering for Research": "Reproducible pipelines, version control discipline, code testing and debugging, Model Benchmarking, Feature Engineering, Hyperparameter Tuning, Model Evaluation Metrics, Model Deployment, Web App Development",
     "Machine Learning & Deep Learning": "PyTorch, TensorFlow, LangChain, OpenCV, Scikit-learn, GNNs, Graph Attention Networks (GAT), Reinforcement Learning, Self-supervised Learning, Computer Vision, Transformers, LightGBM, XGBoost, Transformer / Sequence Models, Representation Learning",
     "Probabilistic & Statistical Methods": "Bayesian Inference, Amortized Neural Posterior Estimation, Statistical Theory, Causality, Decision Trees, Simulation-based Inference, Uncertainty Quantification, Calibration Diagnostics",
     "Language Skills": "English (C1), German A2 (learning toward B1)",
     "NLP & Audio Processing": "Hugging Face, NLTK, SpaCy, Librosa, SpeechBrain, Audio Classification, Acoustic Feature Extraction, Multi-label Classification",
     "Business Intelligence & Analytics": "Data Analytics, Recommendation Systems, A/B Testing, Business Intelligence, Data-driven Decision Making, Data Visualization, Power BI, KPI Dashboards, Data Wrangling, Business Intelligence Reporting",
-    "Graph & Knowledge Representation":"RDF, SPARQL, Knowledge Graphs, Graph & Tree Data Structures, Graph Embedding",
-    "LLM & GenAI Engineering": "LLM APIs (Gemini, OpenRouter), LangChain, Prompt Engineering, Structured Output / JSON Schema, Retrieval & Ranking, Multi-provider Fallback, Agentic Workflows"
+    "Graph & Knowledge Representation":"RDF, SPARQL, Knowledge Graphs, Graph and Tree Data Structures, Graph Embedding",
+    "LLM & GenAI Engineering": "LLM APIs, LangChain, Prompt Engineering, JSON Schema, Retrieval and Ranking, Agentic Workflows"
   },
   "availability": "Available from October 2026, up to 20 hours/week during the semester and full-time during the semester break; based in Dortmund.",
   "experience": [
@@ -21,9 +21,9 @@
       "company": "University of Duisburg-Essen, Germany",
       "keywords": ["R", "C", "causal inference", "decision trees", "statistical methods", "software engineering for research", "unit testing", "version control", "reproducible pipelines", "web app development", "data visualization"],
       "bullets": [
-        "Developed and maintained R packages using version control, automated unit testing, and structured documentation.",
-        "Extended a causal decision tree R package by integrating a custom MAD (median-absolute-deviation) split rule with a C backend for robust treatment-effect estimation under noisy data.",
-        "Built an interactive web application to streamline the package's workflows and visualize model outputs."
+          "Developed and maintained R packages using version control, automated unit testing, and structured documentation.",
+          "Extended a causal decision tree R package by integrating custom median-based split rules (MAD, LSD) to handle noisy data.",
+          "Built an interactive web application to streamline the package's workflows and visualize model outputs."
       ]
     },
     {
