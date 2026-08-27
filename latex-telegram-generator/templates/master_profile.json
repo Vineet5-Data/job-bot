@@ -1,0 +1,79 @@
+{
+  "positioning": "Data scientist & ML engineer at TU Dortmund. Takes ideas out of research papers and turns them into systems that run on real, messy data — measured honestly, and holding up outside the notebook. Background spans audio classification, simulation-based inference, recommendation systems in production, and causal inference, moving comfortably between research and the engineering that carries it.",
+  "skills": {
+    "Programming Languages": "Python, R, SQL, C, C++ (basics)",
+    "Data Processing & Visualization": "Pandas, NumPy, Matplotlib, Seaborn, EDA, Tableau, Plotly, Geopandas, OSMnx, NetworkX",
+    "Tools & Platforms": "Git/GitHub, AWS, Docker, Kubernetes, Firebase, PostgreSQL, OSMnx, Weights & Biases, LaTeX, REST APIs",
+    "Software Engineering for Research": "Reproducible pipelines, version control discipline, code testing & debugging, Model Benchmarking, Feature Engineering, Hyperparameter Tuning, Model Evaluation Metrics, Model Deployment, Web App Development",
+    "Machine Learning & Deep Learning": "PyTorch, TensorFlow, LangChain, OpenCV, Scikit-learn, GNNs, Graph Attention Networks (GAT), Reinforcement Learning, Self-supervised Learning, Computer Vision, Transformers, LightGBM, XGBoost, Transformer / Sequence Models, Representation Learning",
+    "Probabilistic & Statistical Methods": "Bayesian Inference, Amortized Neural Posterior Estimation, Statistical Theory, Causality, Decision Trees, Simulation-based Inference, Uncertainty Quantification, Calibration Diagnostics",
+    "Language Skills": "English (C1), German A2 (learning toward B1)",
+    "NLP & Audio Processing": "Hugging Face, NLTK, SpaCy, Librosa, SpeechBrain, Audio Classification, Acoustic Feature Extraction, Multi-label Classification",
+    "Business Intelligence & Analytics": "Data Analytics, Recommendation Systems, A/B Testing, Business Intelligence, Data-driven Decision Making, Data Visualization, Power BI, KPI Dashboards, Data Wrangling, Business Intelligence Reporting",
+    "Graph & Knowledge Representation":"RDF, SPARQL, Knowledge Graphs, Graph & Tree Data Structures, Graph Embedding"
+  },
+  "experience": [
+    {
+      "role": "Research Assistant",
+      "duration": "01/2025 - Present",
+      "company": "University of Duisburg-Essen, Germany",
+      "keywords": ["R", "C", "causal inference", "decision trees", "statistical methods", "software engineering for research", "unit testing", "version control", "reproducible pipelines", "web app development", "data visualization"],
+      "bullets": [
+        "Developed and maintained R packages using version control, automated unit testing, and structured documentation.",
+        "Extended a causal decision tree R package by integrating a custom MAD (median-absolute-deviation) split rule with a C backend for robust treatment-effect estimation under noisy data.",
+        "Built an interactive web application to streamline the package's workflows and visualize model outputs."
+      ]
+    },
+    {
+      "role": "Data Analyst",
+      "duration": "02/2023 - 09/2023",
+      "company": "OneknotOne Technologies, India",
+      "keywords": ["Python", "recommendation systems", "KD-Tree", "similarity search", "algorithms", "data structures", "AWS", "deployment", "big data", "scalability", "data analytics"],
+      "bullets": [
+        "Built a recommendation system in Python using a KD Tree-based similarity search over 50,000+ user-item interactions, applying tree/graph data structures to scale neighbour queries.",
+        "Improved user engagement by 15% and reduced computational complexity from O(n^2) to O(n \\log n) through algorithmic redesign.",
+        "Deployed and benchmarked the model on AWS, reducing processing time by 20% and establishing a reproducible inference pipeline."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Master's Case Study: Bird Classification with Deep Learning",
+      "duration": "04/2025 - 09/2025",
+      "grade": "1.0",
+      "keywords": ["deep learning", "audio classification", "acoustics", "speech processing", "ConvNeXT", "CNN", "computer vision", "multi-label classification", "ensembling", "hyperparameter tuning", "PyTorch"],
+      "bullets": [
+        "Built an end-to-end ConvNeXT-based deep learning pipeline in PyTorch for multi-label species classification from raw field-recording audio.",
+        "Benchmarked and ensembled CNN architectures with hyperparameter tuning, reaching 0.880 AUC-ROC on multi-label soundscapes."
+      ]
+    },
+    {
+      "title": "Estimating Cosmological Parameters from Power Spectrum",
+      "duration": "04/2025 - 09/2025",
+      "grade": "2.0",
+      "keywords": ["Bayesian inference", "simulation-based inference", "amortized neural posterior estimation", "normalizing flows", "sequence modeling", "uncertainty quantification", "calibration diagnostics", "probabilistic modeling", "BayesFlow", "scientific computing", "cosmology"],
+      "bullets": [
+        "Built an amortized neural posterior estimation pipeline with BayesFlow to recover cosmological parameters (H0, Omega_m, n_s) from the noisy galaxy power spectrum using a sequence model and normalising flows.",
+        "Evaluated whether the learned model's outputs could be trusted using SBC, contraction, z-score, and NRMSE diagnostics, not just whether they looked plausible."
+      ]
+    },
+    {
+      "title": "Wellbore Geology Prediction",
+      "duration": "03/2026 - 06/2026",
+      "keywords": ["feature engineering", "gradient boosting", "LightGBM", "XGBoost", "CatBoost", "time series alignment", "DTW", "Kaggle", "tabular data", "ensemble modeling"],
+      "bullets": [
+        "Built a workflow to predict true vertical thickness from directional-survey and well-log data, with geometry-aware feature engineering using DTW, beam-search alignment, and formation-plane nearest-neighbour methods.",
+        "Trained a checkpointed LightGBM/XGBoost/CatBoost ensemble and reached an RMSE of 16.70"
+      ]
+    },
+    {
+      "title": "Reinforcement Learning for Autonomous Driving",
+      "duration": "03/2026 - 06/2026",
+      "keywords": ["reinforcement learning", "imitation learning", "autonomous driving", "ADAS", "self-supervised learning", "RSSM", "world model", "recurrent state space model", "graph neural networks", "GNN", "graph attention networks", "GAT", "HMM", "Viterbi", "KDE", "sequence modeling", "transformers", "representation learning", "trajectory prediction"],
+      "bullets": [
+        "Built a decoder-free RSSM (recurrent state-space model) world model with a 32x32 latent space, combining sequence modelling with a graph attention network (GAT) road representation for self-supervised trajectory prediction on raw, unlabeled GPS data.",
+        "Benchmarked the learned representation against a classical geometric (HMM/Viterbi) baseline to isolate what the self-supervised signal actually contributed, reaching 86.8% matching accuracy."
+      ]
+    }
+  ]
+}

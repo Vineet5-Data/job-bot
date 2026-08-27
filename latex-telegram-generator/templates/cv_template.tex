@@ -1,0 +1,131 @@
+\documentclass{resume} % Use the custom resume.cls style
+\usepackage[T1]{fontenc}
+\usepackage{cmap}
+\usepackage{microtype}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\sloppy
+\usepackage[left=0.75in,top=0.70in,right=0.75in,bottom=0.70in]{geometry} % Document margins
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{xcolor} % For coloring table rows
+\usepackage{array}
+\usepackage{needspace} % Keeps an experience/project block together across a page break
+\newcommand{\tab}[1]{\hspace{.2667\textwidth}\rlap{#1}}
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+
+\name{Vineet Dairashri} % Your name
+\address{ \textbf{Master's Student in Data Science | <<TITLE>>}}
+\address{\href{mailto:vineetdairashri5@gmail.com}{vineetdairashri5@gmail.com}\addressSep \href{tel:+491786882946}{+49 178 688 2946}\addressSep \color{black}{14A Friedrich-Engels-Strasse, Dortmund}\addressSep \href{https://www.linkedin.com/in/vineet-dairashri5}{LinkedIn}\addressSep \href{https://vineet5-data.github.io/Portfolio/index.html}{Portfolio}
+}
+
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	ABOUT ME
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{PROFILE SUMMARY}
+
+<<TAILORED_PROFILE>>
+
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+
+%	SKILLS
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{SKILLS}
+
+<<TAILORED_SKILLS>>
+
+\end{rSection}
+
+
+%----------------------------------------------------------------------------------------
+%	EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{EXPERIENCE}
+
+<<TAILORED_EXPERIENCE>>
+
+\end{rSection}
+
+
+%----------------------------------------------------------------------------------------
+%	PROJECTS
+%----------------------------------------------------------------------------------------
+<<TAILORED_PROJECTS_SECTION>>
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{EDUCATION}
+
+\begin{tabular}{@{}p{0.25\textwidth}p{0.7\textwidth}@{}}
+   \textit{09/2023 - Present}
+   & {\bf Master of Data Science}, Technische Universität Dortmund
+   \hfill \textbf{Current GPA: 2.5} \\
+
+   & Advanced Machine Learning, Deep Learning, Machine Learning for Big Data, Statistical Theory, Applied Bayesian Methods, Causality, Decision Tree \& Optimization, Industrial Data Science, Fintech \& AI in Finance \\
+    & \textbf{Erasmus}: Fintech and AI in Finance at University of Naples Federico II \\
+   & \\[-0.8em]
+
+   \textit{07/2019 - 06/2023}
+   & {\bf Bachelor of Engineering in Information Technology}
+   \hfill \textbf{GPA: 1.7} \\
+
+   & Sardar Vallabhbhai Patel Institute of Technology, India \\
+   & Data Structures \& Algorithms, SQL, Programming with C, Computer Vision, Software Project Management, Agile Development, OOP with Java \\
+   & \textbf{Bachelor Thesis:} Graph-based Recommendation System using KD Tree
+\end{tabular}
+
+\end{rSection}
+
+
+%----------------------------------------------------------------------------------------
+%	Certificates
+%----------------------------------------------------------------------------------------
+\begin{rSection}{CERTIFICATIONS}
+
+\begin{minipage}[t]{0.48\textwidth}
+
+\textbf{ \href{https://www.datacamp.com/statement-of-accomplishment/course/ea2138d917c71158cdf14d32613b9cacea982a1a?raw=1}{Intermediate Python}}\\
+Issued by Datacamp \hfill 2026
+\begin{itemize}[leftmargin=1.2em, itemsep=-0.2em, topsep=0.2em]
+    \item Built intermediate Python skills in Matplotlib, pandas, dictionaries, control flow, filtering, loops, and data-driven simulations.
+\end{itemize}
+
+\vspace{0.4em}
+
+\textbf{\href{https://www.datacamp.com/statement-of-accomplishment/course/45f4aa1f7671c6e1629c6504a871af23824d3b40?raw=1}{Designing Agentic Systems with LangChain}} \\
+Issued by Datacamp\hfill 2026
+\begin{itemize}[leftmargin=1.2em, itemsep=-0.2em, topsep=0.2em]
+    \item Built agentic AI workflows using LangChain and LangGraph, including prompt configuration, tool integration, and workflow automation.
+\end{itemize}
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+
+\textbf{ \href{https://www.datacamp.com/statement-of-accomplishment/course/a6266eeac19eda57fb50e50ff53f7913adb0f969?raw=1}{Data Manipulation}}\\ 
+Issued by Datacamp \hfill 2026
+\begin{itemize}[leftmargin=1.2em, itemsep=-0.2em, topsep=0.2em]
+    \item Data manipulation and analysis with pandas, including DataFrame cleaning, aggregation, indexing, and visualization.
+\end{itemize}
+
+\textbf{ \href{https://www.datacamp.com/statement-of-accomplishment/course/20f4596b6d7438408d077c3e3051e910c2cfae1e?raw=1}{Writing Functions in Python}}\\
+Issued by Datacamp \hfill 2026
+\begin{itemize}[leftmargin=1.2em, itemsep=-0.2em, topsep=0.2em]
+    \item Built strong Python function-writing skills, including docstrings, the DRY principle, context managers, and decorators with closures and scope.
+\end{itemize}
+
+\end{minipage}
+
+\end{rSection}
+
+\end{document}

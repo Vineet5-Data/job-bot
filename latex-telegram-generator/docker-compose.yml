@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  telegram-latex-bot:
+    build: .
+    container_name: latex_app_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./templates:/app/templates

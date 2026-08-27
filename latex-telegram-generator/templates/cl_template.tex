@@ -1,0 +1,52 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[left=1.1in,right=1.1in,top=1.2in,bottom=1.2in]{geometry}
+\usepackage{hyperref}
+\usepackage{parskip}
+\setlength{\parskip}{1.1em plus 0.3em}
+\usepackage[scaled]{helvet}
+\renewcommand\familydefault{\sfdefault}
+\usepackage[scale=0.95]{arimo} % body + closing use Arimo; name/heading keep Helvetica (Arial look-alike)
+
+\begin{document}
+\fontfamily{phv}\selectfont % pin name/heading to Helvetica explicitly — arimo.sty
+                             % clobbers \sfdefault globally under pdflatex, so
+                             % relying on the ambient default here would break
+
+\noindent
+\begin{minipage}[t]{0.4\textwidth}
+\vspace{0pt}
+\vspace{0.3em}
+{\fontsize{17}{22}\selectfont\setlength{\parskip}{0pt}
+\MakeUppercase{Vineet}\par
+\MakeUppercase{Dairashri}\par}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.5\textwidth}
+\vspace{0pt}
+\begin{flushright}
+\textit{+49 178 688 2946} \\
+\textit{\href{mailto:vineetdairashri5@gmail.com}{vineetdairashri5@gmail.com}} \\
+14A Friedrich-Engels-Strasse, Dortmund
+\end{flushright}
+\end{minipage}
+
+\vspace{1em}
+\hrule
+\vspace{2.5em}
+
+{\fontsize{14}{18}\selectfont\MakeUppercase{Application for <<JOB_TITLE>>}\par}
+
+\vspace{1.5em}
+
+\fontfamily{Arimo-TLF}\selectfont
+
+<<LETTER_BODY>>
+
+\vspace{2em}
+
+Sincerely, \\
+Vineet Dairashri
+
+\end{document}
