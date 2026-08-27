@@ -78,21 +78,13 @@
       ]
     },
     {
-      "title": "LLM Document Generation Service (Personal Project)",
+      "title": "Retrieval-Augmented Document Generation Service (Independent Project)",
       "duration": "08/2026 - Present",
-      "keywords": ["LLM", "GenAI", "large language models", "prompt engineering", "structured output", "JSON schema", "retrieval", "keyword matching", "ranking", "Gemini", "OpenRouter", "LangChain", "Azure", "Docker", "containerisation", "cloud deployment", "REST APIs", "prototyping", "pipeline design", "Python"],
+      "keywords": ["LLM", "GenAI", "large language models", "prompt engineering", "structured output", "JSON schema", "retrieval", "retrieval-augmented generation", "RAG", "entity tagging", "knowledge modeling", "ranking", "relevance scoring", "Gemini", "OpenRouter", "Azure", "Docker", "containerisation", "cloud deployment", "REST APIs", "ETL", "data pipeline", "deduplication", "German NLP", "bilingual", "GitHub Actions", "CI/CD", "prototyping", "pipeline design", "Python"],
       "bullets": [
-        "Built and deployed a production LLM service on an Azure Linux VM (Docker) that turns an unstructured job posting into tailored documents, using a Gemini primary model with an automatic multi-model OpenRouter fallback chain for availability.",
-        "Designed a keyword-tagged profile store and a retrieval step that scores and selects the most relevant experience and project entries per posting, replacing free-form generation with schema-constrained JSON output so the renderer stays deterministic and the LLM only controls content."
-      ]
-    },
-    {
-      "title": "Automated Job Retrieval & Filtering Pipeline (Personal Project)",
-      "duration": "08/2026 - Present",
-      "keywords": ["retrieval", "data processing", "ETL", "data pipeline", "web scraping", "REST APIs", "deduplication", "filtering", "ranking", "German NLP", "keyword matching", "GitHub Actions", "CI/CD", "automation", "Python", "prototyping"],
-      "bullets": [
-        "Built a scheduled retrieval pipeline (GitHub Actions cron) that aggregates postings from the Bundesagentur für Arbeit REST API and multiple job boards, deduplicates against persisted state, and pushes matches to a Telegram channel.",
-        "Cut irrelevant results sharply by replacing naive keyword search with a bilingual German/English relevance filter combining role and domain term matching with word-boundary regex to suppress false-positive collisions."
+        "Built and deployed a containerised LLM service on an Azure Linux VM that generates tailored, professionally formatted documents from unstructured source text, with a five-model Gemini chain and multi-provider OpenRouter fallback for availability.",
+        "Cut hallucinated formatting to zero by splitting the LLM to schema-constrained JSON content only and rendering deterministically in code; a tag-indexed entity store scores and retrieves the most relevant records per request.",
+        "Added a scheduled ingestion pipeline (GitHub Actions) aggregating records from public REST APIs, deduplicating against persisted state and ranking them with a bilingual German/English relevance filter that sharply cut false positives."
       ]
     }
   ]
