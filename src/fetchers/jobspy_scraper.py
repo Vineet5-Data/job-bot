@@ -21,12 +21,13 @@ def fetch_jobs(keyword: str, location: str) -> List[Dict[str, Any]]:
             search_term=keyword,
             location=location,
             results_wanted=15,
-            # 24h window, NOT 1h. A 1h window only works if every scheduled run
-            # actually fires; ~80% of them did not, and any job posted inside a
-            # gap was missed permanently. Re-alerting is already prevented by
-            # the seen_jobs id cache, so a wide window costs nothing but makes
-            # a skipped run harmless.
-            hours_old=24,
+            # 1h window: the point is to apply while the posting is fresh, for
+            # the early-applicant advantage. This is only safe because cron on
+            # the VM fires every 25 min -- a 60-minute lookback overlaps the
+            # 25-minute cadence by 35 minutes, so nothing falls through a gap.
+            # INVARIANT: hours_old*60 must stay comfortably above the cron
+            # interval. If the schedule is ever slowed, raise this to match.
+            hours_old=1,
             country_indeed="germany"
         )
         
