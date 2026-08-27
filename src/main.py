@@ -7,7 +7,65 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, JOB_LOCATION, KEYWORDS
 from storage import load_seen_ids, save_seen_ids
 from notifier import send_telegram_alert
-from fetchers import arbeitsagentur, jobspy_scraper
+# arbeitsagentur kept on disk but no longer imported: its public API key
+# returns HTTP 403 everywhere (see note in main()).
+from fetchers import jobspy_scraper
+import re
+
+def is_relevant_job(job_dict: dict) -> bool:
+    t = job_dict.get("title", "").lower()
+    loc = job_dict.get("location", "").lower()
+    
+    # Block jobs outside Germany (LinkedIn sponsored jobs often bypass location)
+    foreign_countries = ["italy", "italia", "france", "uk ", "united kingdom", "spain", "poland", "netherlands", "switzerland", "austria", "usa", "united states", "india"]
+    if any(f in loc for f in foreign_countries):
+        return False
+        
+    # Exclude lower priority or irrelevant roles
+    if "sales" in t or "marketing" in t or "business development" in t or "e-commerce" in t:
+        return False
+
+    # Must be Master Thesis, Internship, or Werkstudent (working student)
+    role_kws = [
+        "master", "thesis", "abschlussarbeit", "intern", "praktik",
+        "werkstudent", "working student", "student",
+        # Entry routes that were silently dropped: "Trainee Quality
+        # Engineering", "Junior Data Analyst" etc. matched no role keyword.
+        "trainee", "graduate", "absolvent", "hilfskraft", "hiwi",
+        "duales studium", "dualer", "berufseinsteiger", "young professional",
+    ]
+    has_role = any(r in t for r in role_kws)
+    
+    # Must be in Data/AI domain
+    tech_kws = [
+        # Core (English)
+        "data", "machine learning", "deep learning", "nlp", "computer vision",
+        "reinforcement", "llm", "robotics", "autonomous", "adas", "genai",
+        "generative ai", "agent", "analytics", "audio", "speech", "voice", "acoustic",
+        "statistic", "quantitative", "econometric", "bayesian", "predictive modeling",
+        "predictive maintenance", "time series", "forecasting", "business intelligence",
+        "power bi", "tableau", "process mining", "mlops", "model deployment",
+        "feature engineering", "tinyml", "neural", "object detection",
+        "image recognition", "image segmentation", "pose estimation", "sensor fusion",
+        "recommender system", "anomaly detection", "knowledge graph", "embedding",
+        "chatbot", "prompt engineering", "fine-tuning", "finetuning",
+        "retrieval augmented generation", "foundation model", "sagemaker", "digital twin",
+        # German market terms
+        "statistik", "datenanalyse", "datenvisualisierung", "zeitreihenanalyse",
+        "prädiktiv", "vorhersage", "prognosemodell", "textanalyse", "bilderkennung",
+        "bildverarbeitung", "mustererkennung", "objekterkennung", "sprachverarbeitung",
+        "künstliche intelligenz", "maschinelles lernen", "neuronale netze",
+        "digitaler zwilling", "vorausschauende wartung", "vektordatenbank",
+    ]
+    # Title-only matching threw away real student roles whose tech stack is
+    # stated only in the body ("Werkstudent im Bereich Research & Development").
+    # Role still must match the TITLE -- descriptions carry "Praktikum"
+    # boilerplate constantly and would match nearly everything.
+    haystack = t + " " + job_dict.get("description", "").lower()
+    has_tech = any(tk in haystack for tk in tech_kws) or bool(re.search(r'\b(ai|ml|cv|ki|rl|etl|rag)\b', haystack))
+    
+    return has_role and has_tech
+
 
 def main():
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -22,56 +80,18 @@ def main():
     
     for keyword in KEYWORDS:
         print(f"Fetching jobs for keyword: {keyword}...")
-        aa_jobs = arbeitsagentur.fetch_jobs(keyword, JOB_LOCATION)
+        # Arbeitsagentur disabled 2026-08-27: the public "jobboerse-jobsuche"
+        # API key now returns HTTP 403 on every endpoint, header set, source IP
+        # and TLS fingerprint tested, including its OAuth token endpoint. It
+        # contributed 0 of 1628 jobs while costing one failed request per
+        # keyword per run. Google Jobs (via jobspy) replaces the German-board
+        # coverage it was supposed to provide.
         js_jobs = jobspy_scraper.fetch_jobs(keyword, JOB_LOCATION)
-        all_fetched_jobs.extend(aa_jobs)
         all_fetched_jobs.extend(js_jobs)
         
     new_alert_count = 0
     now_str = datetime.utcnow().isoformat() + "Z"
     
-    import re
-    def is_relevant_job(job_dict: dict) -> bool:
-        t = job_dict.get("title", "").lower()
-        loc = job_dict.get("location", "").lower()
-        
-        # Block jobs outside Germany (LinkedIn sponsored jobs often bypass location)
-        foreign_countries = ["italy", "italia", "france", "uk ", "united kingdom", "spain", "poland", "netherlands", "switzerland", "austria", "usa", "united states", "india"]
-        if any(f in loc for f in foreign_countries):
-            return False
-            
-        # Exclude lower priority or irrelevant roles
-        if "sales" in t or "marketing" in t or "business development" in t or "e-commerce" in t:
-            return False
-
-        # Must be Master Thesis, Internship, or Werkstudent (working student)
-        role_kws = ["master", "thesis", "abschlussarbeit", "intern", "praktik", "werkstudent", "working student"]
-        has_role = any(r in t for r in role_kws)
-        
-        # Must be in Data/AI domain
-        tech_kws = [
-            # Core (English)
-            "data", "machine learning", "deep learning", "nlp", "computer vision",
-            "reinforcement", "llm", "robotics", "autonomous", "adas", "genai",
-            "generative ai", "agent", "analytics", "audio", "speech", "voice", "acoustic",
-            "statistic", "quantitative", "econometric", "bayesian", "predictive modeling",
-            "predictive maintenance", "time series", "forecasting", "business intelligence",
-            "power bi", "tableau", "process mining", "mlops", "model deployment",
-            "feature engineering", "tinyml", "neural", "object detection",
-            "image recognition", "image segmentation", "pose estimation", "sensor fusion",
-            "recommender system", "anomaly detection", "knowledge graph", "embedding",
-            "chatbot", "prompt engineering", "fine-tuning", "finetuning",
-            "retrieval augmented generation", "foundation model", "sagemaker", "digital twin",
-            # German market terms
-            "statistik", "datenanalyse", "datenvisualisierung", "zeitreihenanalyse",
-            "prädiktiv", "vorhersage", "prognosemodell", "textanalyse", "bilderkennung",
-            "bildverarbeitung", "mustererkennung", "objekterkennung", "sprachverarbeitung",
-            "künstliche intelligenz", "maschinelles lernen", "neuronale netze",
-            "digitaler zwilling", "vorausschauende wartung", "vektordatenbank",
-        ]
-        has_tech = any(tk in t for tk in tech_kws) or bool(re.search(r'\b(ai|ml|cv|ki|rl|etl|rag)\b', t))
-        
-        return has_role and has_tech
 
     processed_this_run = set()
     

@@ -15,8 +15,9 @@ def fetch_jobs(keyword: str, location: str) -> List[Dict[str, Any]]:
 
     try:
         df = scrape_jobs(
-            site_name=["linkedin", "indeed"],
+            site_name=["linkedin", "indeed", "google"],
             search_term=keyword,
+            google_search_term=f"{keyword} jobs in {location}",
             location=location,
             results_wanted=15,
             hours_old=1,
@@ -53,7 +54,11 @@ def fetch_jobs(keyword: str, location: str) -> List[Dict[str, Any]]:
                 "company": str(row.get("company", "")),
                 "location": str(row.get("location", "")),
                 "url": job_url,
-                "source": "LinkedIn / Indeed"
+                # Relevance is decided on title + description: German student
+                # postings are routinely titled "Werkstudent im Bereich R&D"
+                # with every tech term living in the body text.
+                "description": str(row.get("description", "") or "")[:4000],
+                "source": str(row.get("site", "") or "LinkedIn / Indeed"),
             })
     except Exception as e:
         print(f"Error fetching from JobSpy for '{keyword}': {e}")
