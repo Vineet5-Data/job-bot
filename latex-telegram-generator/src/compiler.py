@@ -121,9 +121,21 @@ def render_cover_letter_body(greeting: str, paragraphs: List[str]) -> str:
     parts = [escape_latex(greeting)] + [escape_latex(p) for p in paragraphs]
     return "\n\n".join(parts)
 
+def slug_model(model: str) -> str:
+    """Model id -> filename-safe tag. OpenRouter ids carry a vendor prefix and a
+    ':free' suffix ("nvidia/nemotron-3-ultra-550b-a55b:free") and both '/' and
+    ':' are illegal in filenames; Gemini ids ("gemini-3.7-flash") pass through."""
+    if not model:
+        return ""
+    model = model.split("/")[-1].split(":")[0]
+    return "".join(c if (c.isalnum() or c in "-.") else "-" for c in model).strip("-")
+
 def compile_pdfs(tailored_data: Dict[str, Any]) -> Tuple[Path, Path]:
     company_name_safe = "".join(c if c.isalnum() else "_" for c in tailored_data.get("company_name", "Company")).strip("_")
-    
+    # Tags each PDF with the model that wrote it, so runs stay comparable.
+    model_tag = slug_model(tailored_data.get("_model", ""))
+    name_suffix = f"_{model_tag}" if model_tag else ""
+
     tmp_dir = Path(tempfile.mkdtemp(prefix=f"app_{company_name_safe}_"))
     
     try:
@@ -157,8 +169,8 @@ def compile_pdfs(tailored_data: Dict[str, Any]) -> Tuple[Path, Path]:
         cl_tex = cl_tex.replace("<<LETTER_BODY>>", body_sanitized)
 
         # Write tailored tex files
-        cv_out_path = tmp_dir / f"CV_{company_name_safe}.tex"
-        cl_out_path = tmp_dir / f"Cover_Letter_{company_name_safe}.tex"
+        cv_out_path = tmp_dir / f"CV_{company_name_safe}{name_suffix}.tex"
+        cl_out_path = tmp_dir / f"Cover_Letter_{company_name_safe}{name_suffix}.tex"
         
         with open(cv_out_path, "w", encoding="utf-8") as f:
             f.write(cv_tex)

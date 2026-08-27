@@ -106,7 +106,11 @@ def generate_tailored_content(job_description: str, master_profile: Dict[str, An
                         response_mime_type="application/json"
                     )
                 )
-                return extract_json_from_response(response.text)
+                result = extract_json_from_response(response.text)
+                # Which model actually won the fallback race — used to tag the
+                # output filenames so generations stay comparable.
+                result["_model"] = model
+                return result
             except Exception as e:
                 logger.warning(f"Gemini model {model} failed: {e}")
         logger.warning("All Gemini models failed. Falling back to OpenRouter...")
@@ -132,7 +136,9 @@ def generate_tailored_content(job_description: str, master_profile: Dict[str, An
                     {"role": "user", "content": prompt}
                 ]
             )
-            return extract_json_from_response(completion.choices[0].message.content)
+            result = extract_json_from_response(completion.choices[0].message.content)
+            result["_model"] = model
+            return result
         except Exception as e:
             logger.warning(f"OpenRouter model {model} failed: {e}")
 

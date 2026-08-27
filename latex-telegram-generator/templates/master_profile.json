@@ -78,8 +78,8 @@
       ]
     },
     {
-      "title": "Retrieval-Augmented Document Generation Service (Independent Project)",
-      "duration": "08/2026 - Present",
+      "title": "Retrieval-Augmented Document Generation Service",
+      "duration": "08/2026",
       "keywords": ["LLM", "GenAI", "large language models", "prompt engineering", "structured output", "JSON schema", "retrieval", "retrieval-augmented generation", "RAG", "entity tagging", "knowledge modeling", "ranking", "relevance scoring", "Gemini", "OpenRouter", "Azure", "Docker", "containerisation", "cloud deployment", "REST APIs", "ETL", "data pipeline", "deduplication", "German NLP", "bilingual", "GitHub Actions", "CI/CD", "prototyping", "pipeline design", "Python"],
       "bullets": [
         "Built and deployed a containerised LLM service on an Azure Linux VM that generates tailored, professionally formatted documents from unstructured source text, with a five-model Gemini chain and multi-provider OpenRouter fallback for availability.",

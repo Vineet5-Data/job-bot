@@ -50,4 +50,14 @@ bs_tex = render_experience([{
 assert r"\log" not in bs_tex, "raw backslash command leaked into LaTeX"
 assert r"\textbackslash{}log" in bs_tex
 
+# Model tag in filenames: '/' and ':' are illegal in filenames, so OpenRouter
+# ids must be stripped to the bare model name. Missing model => no suffix.
+from src.compiler import slug_model
+assert slug_model("gemini-3.7-flash") == "gemini-3.7-flash"
+assert slug_model("nvidia/nemotron-3-ultra-550b-a55b:free") == "nemotron-3-ultra-550b-a55b"
+assert slug_model("z-ai/glm-5.2:free") == "glm-5.2"
+assert slug_model("") == ""
+for bad in ("/", ":", "\\"):
+    assert bad not in slug_model("nvidia/nemotron-3-ultra-550b-a55b:free")
+
 print("All render checks passed.")
