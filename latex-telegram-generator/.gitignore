@@ -10,5 +10,5 @@ env/
 *.out
 debug_*.tex
 debug_*.pdf
-local_*_output.*
-annotation_*_output.*
+*_output.pdf
+*_output.tex

@@ -41,4 +41,13 @@ assert cl_tex.startswith("Dear Hiring Manager,")
 assert "50\\%" in cl_tex
 assert cl_tex.count("\n\n") == 2  # greeting + 2 paragraphs => 2 blank-line separators
 
+# A backslash in LLM/profile content is a live LaTeX command, not text.
+# "O(n \log n)" used to compile as math-only \log and break the build.
+bs_tex = render_experience([{
+    "role": "Data Analyst", "duration": "2023", "company": "Acme",
+    "bullets": [r"Cut complexity from O(n^2) to O(n \log n)."]
+}])
+assert r"\log" not in bs_tex, "raw backslash command leaked into LaTeX"
+assert r"\textbackslash{}log" in bs_tex
+
 print("All render checks passed.")

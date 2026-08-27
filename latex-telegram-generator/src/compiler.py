@@ -178,12 +178,19 @@ def compile_pdfs(tailored_data: Dict[str, Any]) -> Tuple[Path, Path]:
                 )
                 if result.returncode != 0:
                     log_file = tex_path.with_suffix(".log")
-                    error_tail = ""
+                    detail = ""
                     if log_file.exists():
-                        with open(log_file, "r", encoding="utf-8") as lf:
-                            lines = lf.readlines()
-                            error_tail = "".join(lines[-30:])
-                    raise RuntimeError(f"pdflatex compilation failed for {tex_path.name}.\nLog tail:\n{error_tail}")
+                        with open(log_file, "r", encoding="utf-8", errors="replace") as lf:
+                            lines = lf.read().splitlines()
+                        # pdflatex marks real errors with a leading "!"; they sit
+                        # in the middle of the log, so a blind tail shows only the
+                        # successful ending and hides the actual cause.
+                        errors = [
+                            "\n".join(lines[i:i + 5])
+                            for i, l in enumerate(lines) if l.startswith("!")
+                        ]
+                        detail = "\n---\n".join(errors[:3]) or "\n".join(lines[-30:])
+                    raise RuntimeError(f"pdflatex compilation failed for {tex_path.name}.\n{detail}")
                     
         return (cv_out_path.with_suffix(".pdf"), cl_out_path.with_suffix(".pdf"))
         

@@ -3,15 +3,17 @@
   "skills": {
     "Programming Languages": "Python, R, SQL, C, C++ (basics)",
     "Data Processing & Visualization": "Pandas, NumPy, Matplotlib, Seaborn, EDA, Tableau, Plotly, Geopandas, OSMnx, NetworkX",
-    "Tools & Platforms": "Git/GitHub, AWS, Docker, Kubernetes, Firebase, PostgreSQL, OSMnx, Weights & Biases, LaTeX, REST APIs",
+    "Tools & Platforms": "Git/GitHub, Azure (Linux VM, containerised deployment), AWS, Docker, Kubernetes, GitHub Actions (CI/CD), Firebase, PostgreSQL, OSMnx, Weights & Biases, LaTeX, REST APIs, MS Office (Excel, PowerPoint)",
     "Software Engineering for Research": "Reproducible pipelines, version control discipline, code testing & debugging, Model Benchmarking, Feature Engineering, Hyperparameter Tuning, Model Evaluation Metrics, Model Deployment, Web App Development",
     "Machine Learning & Deep Learning": "PyTorch, TensorFlow, LangChain, OpenCV, Scikit-learn, GNNs, Graph Attention Networks (GAT), Reinforcement Learning, Self-supervised Learning, Computer Vision, Transformers, LightGBM, XGBoost, Transformer / Sequence Models, Representation Learning",
     "Probabilistic & Statistical Methods": "Bayesian Inference, Amortized Neural Posterior Estimation, Statistical Theory, Causality, Decision Trees, Simulation-based Inference, Uncertainty Quantification, Calibration Diagnostics",
     "Language Skills": "English (C1), German A2 (learning toward B1)",
     "NLP & Audio Processing": "Hugging Face, NLTK, SpaCy, Librosa, SpeechBrain, Audio Classification, Acoustic Feature Extraction, Multi-label Classification",
     "Business Intelligence & Analytics": "Data Analytics, Recommendation Systems, A/B Testing, Business Intelligence, Data-driven Decision Making, Data Visualization, Power BI, KPI Dashboards, Data Wrangling, Business Intelligence Reporting",
-    "Graph & Knowledge Representation":"RDF, SPARQL, Knowledge Graphs, Graph & Tree Data Structures, Graph Embedding"
+    "Graph & Knowledge Representation":"RDF, SPARQL, Knowledge Graphs, Graph & Tree Data Structures, Graph Embedding",
+    "LLM & GenAI Engineering": "LLM APIs (Gemini, OpenRouter), LangChain, Prompt Engineering, Structured Output / JSON Schema, Retrieval & Ranking, Multi-provider Fallback, Agentic Workflows"
   },
+  "availability": "Available from October 2026, up to 20 hours/week during the semester and full-time during the semester break; based in Dortmund.",
   "experience": [
     {
       "role": "Research Assistant",
@@ -31,7 +33,7 @@
       "keywords": ["Python", "recommendation systems", "KD-Tree", "similarity search", "algorithms", "data structures", "AWS", "deployment", "big data", "scalability", "data analytics"],
       "bullets": [
         "Built a recommendation system in Python using a KD Tree-based similarity search over 50,000+ user-item interactions, applying tree/graph data structures to scale neighbour queries.",
-        "Improved user engagement by 15% and reduced computational complexity from O(n^2) to O(n \\log n) through algorithmic redesign.",
+        "Improved user engagement by 15% and reduced computational complexity from O(n^2) to O(n log n) through algorithmic redesign.",
         "Deployed and benchmarked the model on AWS, reducing processing time by 20% and establishing a reproducible inference pipeline."
       ]
     }
@@ -73,6 +75,24 @@
       "bullets": [
         "Built a decoder-free RSSM (recurrent state-space model) world model with a 32x32 latent space, combining sequence modelling with a graph attention network (GAT) road representation for self-supervised trajectory prediction on raw, unlabeled GPS data.",
         "Benchmarked the learned representation against a classical geometric (HMM/Viterbi) baseline to isolate what the self-supervised signal actually contributed, reaching 86.8% matching accuracy."
+      ]
+    },
+    {
+      "title": "LLM Document Generation Service (Personal Project)",
+      "duration": "08/2026 - Present",
+      "keywords": ["LLM", "GenAI", "large language models", "prompt engineering", "structured output", "JSON schema", "retrieval", "keyword matching", "ranking", "Gemini", "OpenRouter", "LangChain", "Azure", "Docker", "containerisation", "cloud deployment", "REST APIs", "prototyping", "pipeline design", "Python"],
+      "bullets": [
+        "Built and deployed a production LLM service on an Azure Linux VM (Docker) that turns an unstructured job posting into tailored documents, using a Gemini primary model with an automatic multi-model OpenRouter fallback chain for availability.",
+        "Designed a keyword-tagged profile store and a retrieval step that scores and selects the most relevant experience and project entries per posting, replacing free-form generation with schema-constrained JSON output so the renderer stays deterministic and the LLM only controls content."
+      ]
+    },
+    {
+      "title": "Automated Job Retrieval & Filtering Pipeline (Personal Project)",
+      "duration": "08/2026 - Present",
+      "keywords": ["retrieval", "data processing", "ETL", "data pipeline", "web scraping", "REST APIs", "deduplication", "filtering", "ranking", "German NLP", "keyword matching", "GitHub Actions", "CI/CD", "automation", "Python", "prototyping"],
+      "bullets": [
+        "Built a scheduled retrieval pipeline (GitHub Actions cron) that aggregates postings from the Bundesagentur für Arbeit REST API and multiple job boards, deduplicates against persisted state, and pushes matches to a Telegram channel.",
+        "Cut irrelevant results sharply by replacing naive keyword search with a bilingual German/English relevance filter combining role and domain term matching with word-boundary regex to suppress false-positive collisions."
       ]
     }
   ]
