@@ -1,12 +1,13 @@
 name: Run Job Alert Tracker
 
 on:
-  schedule:
-    # Offset off the hour on purpose. '*/25' fires at :00/:25/:50, and :00 is
-    # the most congested minute on GitHub Actions -- scheduled runs are
-    # delayed or silently dropped under load, worst for private free-tier
-    # repos. Same 25-minute spacing, shifted clear of the rush.
-    - cron: '7,32,57 * * * *'
+  # Schedule disabled 2026-08-27: the tracker now runs from cron on the Azure
+  # VM every 25 minutes. GitHub only fired ~20% of scheduled runs (29 of ~144
+  # over 2.5 days, gaps up to 11.5h). Leaving both enabled would double-alert,
+  # because the VM keeps its own data/seen_jobs.json and the two states diverge.
+  # Manual dispatch is kept as a fallback if the VM is ever down.
+  # schedule:
+  #   - cron: '7,32,57 * * * *'
   workflow_dispatch:        # Allows manual run from GitHub UI
 
 concurrency:

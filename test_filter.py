@@ -13,12 +13,19 @@ def job(title, desc="", loc="Dortmund, Germany"):
 assert ok(job("Werkstudent Data Science (m/w/d)"))
 assert ok(job("Masterarbeit Machine Learning"))
 assert ok(job("Praktikum Künstliche Intelligenz"))
-# rescued by description matching: student role, tech only in the body
+# description tier: needs TWO distinct strong terms, not one
 assert ok(job("Werkstudent im Bereich Research & Development (m/w/d)",
               "Du arbeitest mit Python an Machine Learning Modellen."))
+# one strong term alone must NOT be enough -- this is what let
+# "Werkstudent Cyber and IT Security" through when any single hit counted
+assert not ok(job("Werkstudent Cyber and IT Security Engineering (m/w/d)",
+                  "Wir nutzen Python fuer Automatisierung der Security-Pipelines.")),     "single strong term in description must not pass"
+# generic body words must never qualify a non-tech role
+assert not ok(job("Werkstudent Recruiting (m/w/d)",
+                  "Du arbeitest mit Daten und Analytics im HR Bereich.")),     "generic 'daten/analytics' in body must not pass"
 # rescued by broadened role keywords
 assert ok(job("Trainee Data Analytics (all genders)"))
-assert ok(job("Graduate Programme Artificial Intelligence", "AI und Data Science"))
+assert ok(job("Graduate Programme Artificial Intelligence"))  # title-tier match
 
 # --- must FAIL ---
 assert not ok(job("Principal Data Scientist (m/f/d)")), "senior FT role"
@@ -29,10 +36,12 @@ assert not ok(job("Werkstudent Data Science", loc="Milan, Italy")), "outside Ger
 assert not ok(job("Praktikum Operative Transportlogistik (m/w/d)",
                   "Unterstuetzung im Transport und der Lagerlogistik."))
 
-# --- regex boundaries: the \b guard must survive future edits ---
-# Without \b these match "ai"/"ml" inside ordinary words across a 4000-char body.
-assert not ok(job("Werkstudent Fertigung", "Wartung, Training und E-Mail Support.")), \
-    "word-boundary regression: 'ai'/'ml' matched inside maintenance/training/email"
-assert ok(job("Werkstudent Entwicklung", "Erfahrung mit AI und ML erwuenscht."))
+# --- short-token regex boundaries: this guard must survive future edits ---
+# The regex (ai|ml|cv|ki|rl|etl|rag) applies to the TITLE only. Without its
+# \b anchors it matches inside ordinary words -- m-ai-ntenance,
+# tr-ai-ning, e-m-ai-l -- which would pass very nearly everything.
+assert ok(job("Werkstudent AI Entwicklung (m/w/d)")), "standalone AI must match"
+assert not ok(job("Werkstudent Maintenance und Training (m/w/d)")), "ai matched inside maintenance/training"
+assert not ok(job("Werkstudent E-Mail Marketing (m/w/d)")), "ai matched inside e-mail"
 
 print("All filter checks passed.")

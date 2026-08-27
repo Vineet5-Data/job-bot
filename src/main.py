@@ -12,6 +12,25 @@ from notifier import send_telegram_alert
 from fetchers import jobspy_scraper
 import re
 
+# Terms specific enough that two of them in a description mean the role really
+# is data/ML work. Deliberately excludes generic words ("data", "analytics",
+# "agent", "digital") that appear in almost every German job posting.
+STRONG_TECH_KWS = [
+    "machine learning", "deep learning", "data science", "data scientist",
+    "kuenstliche intelligenz", "künstliche intelligenz", "maschinelles lernen",
+    "neuronale netze", "neural network", "computer vision", "natural language",
+    "nlp", "reinforcement learning", "large language model", "llm", "genai",
+    "generative ai", "pytorch", "tensorflow", "scikit", "sklearn", "keras",
+    "pandas", "numpy", "hugging face", "langchain", "xgboost", "lightgbm",
+    "jupyter", "matplotlib", "databricks", "mlops", "mlflow",
+    "predictive model", "prognosemodell", "datenanalyse", "data analysis",
+    "data mining", "statistical model", "statistische", "regression",
+    "clustering", "classification", "klassifikation", "zeitreihen",
+    "time series", "forecasting", "knowledge graph", "recommender",
+    "anomaly detection", "feature engineering", "model training",
+    "datenvisualisierung", "power bi", "tableau", "sql", "python",
+]
+
 def is_relevant_job(job_dict: dict) -> bool:
     t = job_dict.get("title", "").lower()
     loc = job_dict.get("location", "").lower()
@@ -41,7 +60,8 @@ def is_relevant_job(job_dict: dict) -> bool:
         # Core (English)
         "data", "machine learning", "deep learning", "nlp", "computer vision",
         "reinforcement", "llm", "robotics", "autonomous", "adas", "genai",
-        "generative ai", "agent", "analytics", "audio", "speech", "voice", "acoustic",
+        "generative ai", "artificial intelligence", "agent", "analytics", "audio",
+        "speech", "voice", "acoustic",
         "statistic", "quantitative", "econometric", "bayesian", "predictive modeling",
         "predictive maintenance", "time series", "forecasting", "business intelligence",
         "power bi", "tableau", "process mining", "mlops", "model deployment",
@@ -61,8 +81,18 @@ def is_relevant_job(job_dict: dict) -> bool:
     # stated only in the body ("Werkstudent im Bereich Research & Development").
     # Role still must match the TITLE -- descriptions carry "Praktikum"
     # boilerplate constantly and would match nearly everything.
-    haystack = t + " " + job_dict.get("description", "").lower()
-    has_tech = any(tk in haystack for tk in tech_kws) or bool(re.search(r'\b(ai|ml|cv|ki|rl|etl|rag)\b', haystack))
+    # Two-tier matching. A tech term in the TITLE is a deliberate signal, so
+    # the full list applies there. A DESCRIPTION is different: nearly every
+    # German posting says "Daten" or "Analytics" somewhere, and applying the
+    # full list to body text passed 60% of everything -- including
+    # "Werkstudent Cyber and IT Security" and "Embedded Systems". Descriptions
+    # therefore require TWO distinct STRONG terms.
+    has_tech = any(tk in t for tk in tech_kws) or bool(
+        re.search(r'\b(ai|ml|cv|ki|rl|etl|rag)\b', t)
+    )
+    if not has_tech:
+        desc = job_dict.get("description", "").lower()
+        has_tech = len({k for k in STRONG_TECH_KWS if k in desc}) >= 2
     
     return has_role and has_tech
 

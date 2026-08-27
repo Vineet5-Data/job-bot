@@ -15,12 +15,18 @@ def fetch_jobs(keyword: str, location: str) -> List[Dict[str, Any]]:
 
     try:
         df = scrape_jobs(
-            site_name=["linkedin", "indeed", "google"],
+            # google dropped: jobspy's Google scraper returns 0 rows for every
+            # query shape tested, so it only added latency.
+            site_name=["linkedin", "indeed"],
             search_term=keyword,
-            google_search_term=f"{keyword} jobs in {location}",
             location=location,
             results_wanted=15,
-            hours_old=1,
+            # 24h window, NOT 1h. A 1h window only works if every scheduled run
+            # actually fires; ~80% of them did not, and any job posted inside a
+            # gap was missed permanently. Re-alerting is already prevented by
+            # the seen_jobs id cache, so a wide window costs nothing but makes
+            # a skipped run harmless.
+            hours_old=24,
             country_indeed="germany"
         )
         
@@ -57,7 +63,7 @@ def fetch_jobs(keyword: str, location: str) -> List[Dict[str, Any]]:
                 # Relevance is decided on title + description: German student
                 # postings are routinely titled "Werkstudent im Bereich R&D"
                 # with every tech term living in the body text.
-                "description": str(row.get("description", "") or "")[:4000],
+                "description": ("" if pd.isna(row.get("description")) else str(row.get("description")))[:4000],
                 "source": str(row.get("site", "") or "LinkedIn / Indeed"),
             })
     except Exception as e:
