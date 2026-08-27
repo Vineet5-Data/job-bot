@@ -20,12 +20,14 @@ PRIMARY_GEMINI_MODEL = get_env_str("PRIMARY_GEMINI_MODEL", "gemini-3.7-flash")
 # (GenerateRequestsPerDayPerProjectPerModel, 20/day), so each extra entry buys a
 # fresh 20-request budget instead of sharing one. Five models => ~100 free
 # generations/day before OpenRouter is touched at all.
+# Dropped 2026-08-27 after live probing returned 404 for both:
+#   gemini-3-flash    -> never existed on v1beta
+#   gemini-2.5-flash  -> "no longer available to new users" (retired)
+# Each dead id cost a wasted round-trip per request before reaching OpenRouter.
 GEMINI_FALLBACK_MODELS = [
     "gemini-3.7-flash",
     "gemini-3.6-flash",
     "gemini-3.5-flash",
-    "gemini-3-flash",
-    "gemini-2.5-flash",
 ]
 
 OPENROUTER_API_KEY = get_env_str("OPENROUTER_API_KEY")
