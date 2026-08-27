@@ -41,18 +41,35 @@ def main():
             return False
             
         # Exclude lower priority or irrelevant roles
-        if "werkstudent" in t or "working student" in t:
-            return False
         if "sales" in t or "marketing" in t or "business development" in t or "e-commerce" in t:
             return False
-            
-        # Must be Master Thesis or Internship
-        role_kws = ["master", "thesis", "abschlussarbeit", "intern", "praktik"]
+
+        # Must be Master Thesis, Internship, or Werkstudent (working student)
+        role_kws = ["master", "thesis", "abschlussarbeit", "intern", "praktik", "werkstudent", "working student"]
         has_role = any(r in t for r in role_kws)
         
         # Must be in Data/AI domain
-        tech_kws = ["data", "machine learning", "deep learning", "nlp", "computer vision", "reinforcement", "llm", "robotics", "autonomous", "adas", "genai", "generative ai", "agent", "analytics", "audio", "speech", "voice", "acoustic"]
-        has_tech = any(tk in t for tk in tech_kws) or bool(re.search(r'\b(ai|ml|cv|ki|rl)\b', t))
+        tech_kws = [
+            # Core (English)
+            "data", "machine learning", "deep learning", "nlp", "computer vision",
+            "reinforcement", "llm", "robotics", "autonomous", "adas", "genai",
+            "generative ai", "agent", "analytics", "audio", "speech", "voice", "acoustic",
+            "statistic", "quantitative", "econometric", "bayesian", "predictive modeling",
+            "predictive maintenance", "time series", "forecasting", "business intelligence",
+            "power bi", "tableau", "process mining", "mlops", "model deployment",
+            "feature engineering", "tinyml", "neural", "object detection",
+            "image recognition", "image segmentation", "pose estimation", "sensor fusion",
+            "recommender system", "anomaly detection", "knowledge graph", "embedding",
+            "chatbot", "prompt engineering", "fine-tuning", "finetuning",
+            "retrieval augmented generation", "foundation model", "sagemaker", "digital twin",
+            # German market terms
+            "statistik", "datenanalyse", "datenvisualisierung", "zeitreihenanalyse",
+            "prädiktiv", "vorhersage", "prognosemodell", "textanalyse", "bilderkennung",
+            "bildverarbeitung", "mustererkennung", "objekterkennung", "sprachverarbeitung",
+            "künstliche intelligenz", "maschinelles lernen", "neuronale netze",
+            "digitaler zwilling", "vorausschauende wartung", "vektordatenbank",
+        ]
+        has_tech = any(tk in t for tk in tech_kws) or bool(re.search(r'\b(ai|ml|cv|ki|rl|etl|rag)\b', t))
         
         return has_role and has_tech
 

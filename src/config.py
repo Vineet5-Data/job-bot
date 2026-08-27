@@ -22,7 +22,7 @@ KEYWORDS = [
     "Praktikum Data Engineering",
     "Internship Data Analyst",
     "Masterarbeit AI",
-    
+
     # German variants to help with Arbeitsagentur
     "Masterarbeit Künstliche Intelligenz",
     "Masterarbeit KI",
@@ -31,7 +31,7 @@ KEYWORDS = [
     "Abschlussarbeit Data Science",
     "Abschlussarbeit Machine Learning",
     "Abschlussarbeit KI",
-    
+
     # Advanced Tech / Autonomous Driving / GenAI (from history)
     "Masterarbeit Autonomous Driving",
     "Internship Autonomous Driving",
@@ -41,11 +41,28 @@ KEYWORDS = [
     "Internship Data Analytics",
     "Master Thesis Agentic",
     "Masterarbeit ADAS",
-    
+
     # Audio / Speech / Acoustics AI
     "Masterarbeit Audio Machine Learning",
     "Master Thesis Audio Processing",
     "Internship Speech Recognition",
     "Masterarbeit Acoustics AI",
-    "Internship Voice AI"
+    "Internship Voice AI",
+
+    # Werkstudent (working student) — the primary target role type on
+    # LinkedIn/Indeed, was missing entirely from the list above
+    "Werkstudent Data Science",
+    "Werkstudent Machine Learning",
+    "Werkstudent Deep Learning",
+    "Werkstudent Künstliche Intelligenz",
+    "Werkstudent KI",
+    "Werkstudent AI",
+    "Werkstudent NLP",
+    "Werkstudent Computer Vision",
+    "Werkstudent Data Engineering",
+    "Werkstudent Data Analyst",
+    "Werkstudent Data Analytics",
+    "Werkstudent Autonomous Driving",
+    "Werkstudent ADAS",
+    "Werkstudent Machine Learning Engineer",
 ]
